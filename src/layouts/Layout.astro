@@ -1,17 +1,25 @@
 ---
+import { ViewTransitions } from "astro:transitions";
+import cn from "classnames";
+
 import Header from "../components/header/Header.astro";
+
 import "@fontsource/lato";
 import "@fontsource/montserrat";
 import "@fontsource/cardo";
 import "@fontsource/lobster";
 
 import "../styles.scss";
+import styles from "./layout.module.scss";
+import Nav from "../components/nav/Nav.astro";
 
 interface Props {
   title: string;
+  heading?: string;
+  class?: string;
 }
 
-const { title } = Astro.props;
+const { title, heading, class: className } = Astro.props;
 ---
 
 <!doctype html>
@@ -23,13 +31,14 @@ const { title } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <ViewTransitions />
   </head>
   <body>
     <Header />
-    <main>
-      <div>
-        <slot />
-      </div>
+    <Nav />
+    <main class={cn(styles.main, className)}>
+      {heading && <h1 class={styles.heading}>{heading}</h1>}
+      <slot />
     </main>
   </body>
 </html>

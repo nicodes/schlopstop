@@ -1,29 +1,86 @@
 ---
+import cn from "classnames";
+
 import { Image } from "astro:assets";
 import Circle from "../circle/Circle.astro";
 
-import phoneImg from "../../assets/phone.svg";
-import emailImg from "../../assets/email.svg";
+import menuImg from "../../assets/menu-white-24.png";
+import instagramImg from "../../assets/instagram-white-24.png";
+import phoneImg from "../../assets/phone-white-24.png";
+import emailImg from "../../assets/email-white-24.png";
 
 import styles from "./header.module.scss";
+import { navButtonId } from "./header";
+
+const { pathname } = new URL(Astro.request.url);
 ---
 
-<header class={styles.header}>
-  <nav class={styles.nav}>
-    <h1>Schlop Stop</h1>
+<header class={styles.header} transition:persist>
+  <div class={styles.container}>
+    <Circle button id={navButtonId} border="3px solid var(--white)">
+      <Image src={menuImg} alt="menu icon" height={24} width={24} />
+    </Circle>
 
-    <a href="mailto:contact@schlopstop.com" class={styles.navItem}>
-      <Circle>
-        <Image src={emailImg} alt="email icon" />
-      </Circle>
-      <p>contact@schlopstop.com</p>
+    <a
+      href="/"
+      class={pathname === "/" ? `${styles.logo} underlined` : styles.logo}
+    >
+      Schlop Stop
     </a>
 
-    <a href="tel:215-756-1916" class={styles.navItem}>
-      <Circle>
-        <Image src={phoneImg} alt="phone icon" />
-      </Circle>
-      <p>215-756-1916</p>
+    <a
+      href="https://drive.google.com/file/d/1lQnXic4f19HyEiq9rXZHFfM-LJ6nqiyg/preview"
+      class={styles.link}
+    >
+      Menu
     </a>
-  </nav>
+
+    <a
+      href="/catering"
+      class={cn(styles.link, { [styles.active]: pathname === "/catering" })}
+    >
+      Catering
+    </a>
+
+    <a
+      href="/about"
+      class={cn(styles.link, { [styles.active]: pathname === "/about" })}
+    >
+      About
+    </a>
+
+    <a
+      href="/farm"
+      class={cn(styles.link, { [styles.active]: pathname === "/farm" })}
+    >
+      Sunburns Farm
+    </a>
+
+    <Circle
+      anchor
+      href="https://www.instagram.com/schlopstop/"
+      border="3px solid var(--white)"
+    >
+      <Image src={instagramImg} alt="instagram icon" height={24} width={24} />
+    </Circle>
+
+    <Circle
+      anchor
+      href="mailto:contact@schlopstop.com"
+      border="3px solid var(--white)"
+    >
+      <Image src={emailImg} alt="email icon" height={24} width={24} />
+    </Circle>
+
+    <Circle anchor href="tel:215-756-1916" border="3px solid var(--white)">
+      <Image src={phoneImg} alt="phone icon" height={24} width={24} />
+    </Circle>
+  </div>
 </header>
+
+<script>
+  import { getNavButton } from "./header";
+  import { navToggle } from "../nav/nav";
+
+  getNavButton()?.addEventListener("click", () => navToggle());
+</script>

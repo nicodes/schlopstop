@@ -1,20 +1,68 @@
 ---
+import { Image } from "astro:assets";
+
 import Layout from "../layouts/Layout.astro";
-import PageLogo from "../components/pageLogo/PageLogo.astro";
-import MenuSectionTitle from "../components/menuSectionTitle/MenuSectionTitle.astro";
-import MenuSectionOptions from "../components/menuSectionOptions/MenuSectionOptions.astro";
-import MenuItem from "../components/menuItem/MenuItem.astro";
+import Circle from "../components/circle/Circle.astro";
+
+import schlopStopImg from "../assets/schlop-logo.png";
+import phoneImg from "../assets/phone-red-24.png";
+import emailImg from "../assets/email-red-24.png";
+import instagramImg from "../assets/instagram-red-24.png";
+
 import styles from "./index.module.scss";
 ---
 
-<Layout title="Schlop Stop">
-  <PageLogo />
+<Layout title="Schlop Stop" class={styles.layout}>
+  <h2 class={styles.title}>Schlop Stop</h2>
 
-  <p class={styles.description}>
+  <Image src={schlopStopImg} height={200} width={200} alt="'Schlop Stop Logo" />
+
+  <!-- <p class={styles.description}>
     Building community through growing, preparing, and serving nourishment for
     all.
-  </p>
+  </p> -->
 
+  <div class={styles.grid}>
+    <a href="/menu" class={styles.gridElement}>
+      <p>Menu</p>
+    </a>
+    <a href="/catering" class={styles.gridElement}>
+      <p>Catering</p>
+    </a>
+    <a href="/about" class={styles.gridElement}>
+      <p>About Us</p>
+    </a>
+    <a href="/farm" class={styles.gridElement}>
+      <p>Sunburns Farm</p>
+    </a>
+  </div>
+
+  <h2 class={styles.contactTitle}>Contact Us</h2>
+
+  <div class={styles.contactContainer}>
+    <a href="https://www.instagram.com/schlopstop/" class={styles.icon}>
+      <Circle border="3px solid var(--red)">
+        <Image src={instagramImg} alt="instagram icon" height={24} width={24} />
+      </Circle>
+      <p>Instagram</p>
+    </a>
+
+    <a href="mailto:contact@schlopstop.com" class={styles.icon}>
+      <Circle border="3px solid var(--red)">
+        <Image src={emailImg} alt="instagram icon" height={24} width={24} />
+      </Circle>
+      <p>Email Us</p>
+    </a>
+
+    <a href="tel:215-756-1916" class={styles.icon}>
+      <Circle border="3px solid var(--red)">
+        <Image src={phoneImg} alt="instagram icon" height={24} width={24} />
+      </Circle>
+      <p>Call Us</p>
+    </a>
+  </div>
+
+  <!-- 
   <p
     style={{
       textAlign: "center ",
@@ -122,5 +170,5 @@ import styles from "./index.module.scss";
     title="Special Sides"
     description="Weekly specials from the farm"
     price="**"
-  />
+  /> -->
 </Layout>
